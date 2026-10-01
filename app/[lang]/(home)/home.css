@@ -1,0 +1,79 @@
+@import "tailwindcss";
+@import "@radix-ui/themes/styles.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root,
+:host {
+  --navbar-height: 76px;
+  --navbar-py: 24px;
+  --default-font-family: var(--font-inter);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+.dark {
+  --background: #0a0a0a;
+  --background-secondary: #18181b;
+  --background-skills-terminal: #18181b;
+  --foreground: #ededed;
+  --color-white: #fafafa;
+  --color-secondary: #d4d4d8;
+  --navbar-bg: rgba(15, 15, 17, 0.75);
+  --navbar-bb-color: rgba(196, 151, 59, 0.2);
+  --color-dark-medium: #2e2e32;
+  --color-dark-light: #3f3f46;
+  --color-grey-light: #8b8b92;
+  --color-gold-dark: #332a17;
+  --color-gold-darker: #948b79;
+  --color-gold: #cda44f;
+  --color-gold-light: #e0bc6e;
+  --color-dark: #27272a;
+  --color-gold-orange: #e08459;
+  --color-grey: #71717a;
+}
+
+.light {
+  --background: #fafafa;
+  --background-secondary: #f9f8f6;
+  --background-skills-terminal: #fff;
+  --foreground: #2d2d2d;
+  --color-white: #1a1a1a;
+  --color-secondary: #2d2d2d;
+  --navbar-bg: rgba(250, 250, 250, 0.85);
+  --navbar-bb-color: rgba(205, 164, 79, 0.2);
+  --color-dark-medium: #f0f0f2;
+  --color-dark-light: #e5e2dc;
+  --color-grey-light: #71717a;
+  --color-gold-dark: #f5eed9;
+  --color-gold-darker: #948b79;
+  --color-gold: #cda44f;
+  --color-gold-light: #e0bc6e;
+  --color-dark: #e5e2dc;
+  --color-gold-orange: #e08459;
+  --color-grey: #71717a;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.radix-themes {
+  --cursor-button: pointer;
+  --cursor-disabled: not-allowed;
+  --container-4: 1280px;
+  --default-font-family: var(--font-inter);
+  --heading-font-family: var(--font-inter);
+  --color-background: var(--background);
+  --accent-9: var(--color-gold);
+  --accent-10: var(--color-gold-light);
+  color: var(--color-white);
+}
+
+[data-accent-color="gray"] {
+  --accent-a8: var(--color-dark-light);
+}

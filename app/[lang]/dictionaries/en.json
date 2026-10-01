@@ -1,0 +1,123 @@
+{
+  "notfound": {
+    "title": "Page not found"
+  },
+  "nav": {
+    "about": "about",
+    "projects": "projects",
+    "blog": "blog",
+    "theme": {
+      "system": "System",
+      "dark": "Dark",
+      "light": "Light"
+    }
+  },
+  "meta": {
+    "notfound": {
+      "title": "Sergey Antonov - Frontend Developer Not found",
+      "description": "Sergey Antonov - Frontend Developer Not found"
+    },
+    "home": {
+      "title": "Sergey Antonov - Frontend Developer",
+      "description": "Sergey Antonov - Frontend Developer"
+    },
+    "about": {
+      "title": "Sergey Antonov - Frontend Developer About",
+      "description": "Sergey Antonov - Frontend Developer About"
+    },
+    "projects": {
+      "title": "Sergey Antonov - Frontend Developer Works",
+      "description": "Sergey Antonov - Frontend Developer Works"
+    },
+    "blog": {
+      "title": "Sergey Antonov - Frontend Developer Contacts",
+      "description": "Sergey Antonov - Frontend Developer Contacts"
+    }
+  },
+  "hero": {
+    "tag": "FRONTEND DEVELOPER",
+    "heading": "Building complex web interfaces that work",
+    "description": "Hi, I'm Sergey Antonov. 6+ years crafting SaaS platforms, admin panels and data-intensive interfaces with React and Vue. I turn complex business logic into clean, performant UIs.",
+    "cta": "Get CV"
+  },
+  "skills": {
+    "eyebrow": "01 / TECH_STACK",
+    "heading": "Core Skills",
+    "sass": {
+      "title": "SaaS & Admin Panels",
+      "description": "Building complex interfaces for managing application data, users and business processes. Experienced with large, highly interconnected data structures and real-time updates."
+    },
+    "performance": {
+      "title": "Performance & Legacy Systems",
+      "description": "Optimizing rendering performance, investigating complex DOM and state issues. Maintaining and modernizing legacy jQuery-based systems while preserving full compatibility."
+    },
+    "json": {
+      "title": "antonov_skills.json",
+      "frontend": {
+        "name": "\"frontend\"",
+        "skills": "[\"JavaScript (ES6+)\", \"React\", \"Vue 2 & 3\", \"jQuery\"],"
+      },
+      "state": {
+        "name": "\"state_management\"",
+        "skills": "[\"Redux\", \"Pinia\", \"Vuex\"],"
+      },
+      "communication": {
+        "name": "\"communication\"",
+        "skills": "[\"REST API\", \"Axios\", \"WebSocket\"],"
+      },
+      "tooling": {
+        "name": "\"tooling\"",
+        "skills": "[\"Playwright\", \"Jest\", \"Webpack\", \"Babel\", \"Git\"]"
+      }
+    }
+  },
+  "projects": {
+    "eyebrow": "02 / PROJECTS",
+    "heading": "Selected Work",
+    "page_heading": "My Work",
+    "button": "cd ~/projects"
+  },
+  "experience": {
+    "eyebrow": "03 / EXPERIENCE",
+    "heading": "Professional Log"
+  },
+  "intouch": {
+    "heading": "Let's build something together",
+    "description": "Looking for a frontend developer who can handle complex SaaS interfaces, admin panels, real-time systems or legacy modernization? Let's talk about your project.",
+    "tag": "get_in_touch.sh"
+  },
+  "placeholder": {
+    "greeting": "Hello from Radix Themes :)",
+    "cta": "Let's go"
+  },
+  "footer": {
+    "sitename": "antonov.dev",
+    "description": "Frontend developer specializing in complex web applications, SaaS platforms and data-intensive interfaces. React & Vue expert with 6+ years of production experience.",
+    "system": "ALL SYSTEMS PERFORMANCE STATUS: 100% DEPLOYED",
+    "reserved": "© 2026 Sergey Antonov. All rights reserved.",
+    "socials": "SOCIALS",
+    "telegram": "Telegram",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
+  },
+  "about": {
+    "title": "Hi! I'm a Frontend Developer",
+    "description": "I'm a frontend developer specializing in complex web applications, SaaS platforms, admin dashboards, and data-intensive interfaces. I have experience working with React and Vue 2/3, legacy codebases, real-time communication, automated testing, and performance optimization.",
+    "description_2": "I value clean code, simple solutions, and architecture that allows a project to evolve without getting in the way.",
+    "description_3": "Outside of commercial projects, I'm interested in open source and enjoy experimenting with new tools and approaches to frontend development.",
+    "skills": {
+      "frontend": {
+        "title": "Frontend"
+      },
+      "state&api": {
+        "title": "State & API"
+      },
+      "testing": {
+        "title": "Testing & Tools"
+      },
+      "development": {
+        "title": "Development"
+      }
+    }
+  }
+}

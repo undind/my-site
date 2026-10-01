@@ -1,0 +1,26 @@
+import { BackpackIcon, DashboardIcon, Pencil2Icon } from "@radix-ui/react-icons";
+
+export const routes = [
+  {
+    href: "/admin/dashboard",
+    key: "about",
+    icon: DashboardIcon,
+  },
+  {
+    href: "/admin/projects",
+    key: "projects",
+    icon: BackpackIcon,
+  },
+  {
+    href: "/admin/blog",
+    key: "blog",
+    icon: Pencil2Icon,
+  },
+] as const;
+
+export type Routes = typeof routes;
+type RouteKey = (typeof routes)[number]["key"];
+
+export function getRouteByKey(key: RouteKey) {
+  return routes.find((route) => route.key === key);
+}

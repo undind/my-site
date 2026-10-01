@@ -1,0 +1,57 @@
+services:
+  postgres-db:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:?required}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?required}
+      POSTGRES_DB: ${DB_NAME:?required}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    networks: [network]
+    logging: &logging
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+      target: builder
+    command: ["npx", "prisma", "migrate", "deploy"]
+    environment: &db-env
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: postgres-db
+      DB_PORT: ${DB_PORT}
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    networks: [network]
+    logging: *logging
+
+  next:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    restart: unless-stopped
+    environment: *db-env
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    networks: [network]
+    logging: *logging
+
+volumes:
+  postgres_data:
+
+networks:
+  network:

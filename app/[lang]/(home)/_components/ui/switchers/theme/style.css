@@ -1,0 +1,25 @@
+.switcher-theme-toggler {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 6px;
+  background-color: var(--color-dark-medium);
+  color: var(--color-grey-light);
+  padding: 2px;
+  min-height: 28px;
+}
+
+.switcher-theme-toggler__item {
+  cursor: pointer;
+  padding: 4px 10px;
+  color: var(--color-grey-light);
+  border-radius: 4px;
+}
+
+.switcher-theme-toggler__item:hover {
+  background-color: var(--color-dark-light);
+}
+
+.switcher-theme-toggler__item[data-state="on"] {
+  background-color: var(--color-gold-dark);
+  color: var(--color-gold);
+}

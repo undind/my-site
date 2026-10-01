@@ -1,0 +1,31 @@
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+.slide-from-top {
+  opacity: 0;
+  animation: slideDown 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translate3D(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3D(0, 0, 0);
+  }
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
