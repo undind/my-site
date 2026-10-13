@@ -30,8 +30,8 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Skip _next internals, the admin panel (not localized) and any
+    // Skip _next internals, the admin panel (not localized), api and any
     // request for a file with an extension (public/ assets, favicon.ico).
-    "/((?!_next|admin|.*\\..*).*)",
+    "/((?!api|_next|_vercel|admin|.*\\..*).*)",
   ],
 };

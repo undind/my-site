@@ -4,11 +4,11 @@ import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from "@/app/admin
 import { getCurrentUser } from "@/lib/queries/user";
 
 export async function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const user = await getCurrentUser("cmuh2dui70000r5g3bm0b2jav");
+  const user = await getCurrentUser();
 
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>{user && <NavUser user={{ ...user, name: user.name ?? user.email }} />}</SidebarHeader>
+      <SidebarHeader>{user ? <NavUser user={{ ...user, name: user.name ?? user.email }} /> : null}</SidebarHeader>
       <SidebarContent>
         <NavMain />
       </SidebarContent>

@@ -21,6 +21,8 @@ body {
 .radix-themes {
   --cursor-button: pointer;
   --cursor-disabled: not-allowed;
+  --cursor-menu-item: pointer;
   --container-4: 1280px;
+  --container-3: 960px;
   --color-background: var(--background);
 }

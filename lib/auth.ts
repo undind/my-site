@@ -8,11 +8,19 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
-  plugins: [nextCookies()],
+  baseURL: process.env.BETTER_AUTH_URL,
+  basePath: "/api/admin/auth",
+  emailAndPassword: {
+    enabled: true,
+    disableSignUp: true,
+    minPasswordLength: 8,
+    maxPasswordLength: 128,
+  },
   session: {
     cookieCache: {
       enabled: true,
       maxAge: 5 * 60, // Cache duration in seconds (5 minutes)
     }
-  }
+  },
+  plugins: [nextCookies()],
 });

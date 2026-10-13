@@ -1,41 +1,40 @@
-import "dotenv/config";
-
-import { PrismaPg } from "@prisma/adapter-pg";
-
-import { PrismaClient } from "@/generated/prisma/client";
-
-import { getDatabaseUrl } from "../lib/database-url";
-
-const adapter = new PrismaPg({
-  connectionString: getDatabaseUrl(),
-});
-
-const prisma = new PrismaClient({
-  adapter,
-});
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 
 async function main() {
-  await prisma.user.upsert({
-    where: {
-      email: "admin@email.com",
-    },
+  const email = process.env.ADMIN_EMAIL;
+  const password = process.env.ADMIN_PASSWORD;
 
-    update: {},
+  if (!email || !password) {
+    throw new Error(
+      "ADMIN_EMAIL and ADMIN_PASSWORD are required",
+    );
+  }
 
-    create: {
-      email: "admin@email.com",
+  const existingUser = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (existingUser) {
+    console.log(`User ${email} already exists`);
+    return;
+  }
+
+  const result = await auth.api.signUpEmail({
+    body: {
       name: "Admin",
-      password: "12345678",
+      email,
+      password,
     },
   });
 
-  console.log("Database seeded");
+  console.log(`Created user: ${result.user.email}`);
 }
 
 main()
   .catch((error) => {
-    console.error(error);
-    process.exit(1);
+    console.error("Seed failed:", error);
+    process.exitCode = 1;
   })
   .finally(async () => {
     await prisma.$disconnect();

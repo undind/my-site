@@ -14,7 +14,7 @@ export function NavMain() {
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
-          {routes.map((item) => (
+          {routes?.filter(item => item.key !== 'account').map((item) => (
             <SidebarMenuItem key={item.key}>
               <Link href={item.href}>
                 <SidebarMenuButton tooltip={capitalize(item.key)} isActive={currentPath.includes(item.href)}>

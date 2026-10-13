@@ -3,7 +3,7 @@ import { BackpackIcon, DashboardIcon, Pencil2Icon } from "@radix-ui/react-icons"
 export const routes = [
   {
     href: "/admin/dashboard",
-    key: "about",
+    key: "dashboard",
     icon: DashboardIcon,
   },
   {
@@ -15,6 +15,11 @@ export const routes = [
     href: "/admin/blog",
     key: "blog",
     icon: Pencil2Icon,
+  },
+  {
+    href: "/admin/account",
+    key: "account",
+    icon: null,
   },
 ] as const;
 

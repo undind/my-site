@@ -6,6 +6,7 @@ import { Theme } from "@radix-ui/themes";
 import { AppHeader } from "@/app/admin/_components/header";
 import { AppSidebar } from "@/app/admin/_components/sidebar";
 import { SidebarInset, SidebarProvider } from "@/app/admin/_components/ui/sidebar";
+import { requireAuth } from "@/lib/auth-server";
 
 import "@/app/admin/style.css";
 
@@ -20,7 +21,9 @@ export const metadata: Metadata = {
   description: "Admin",
 };
 
-export default function AdminAuthRootLayout({ children }: LayoutProps<"/admin">) {
+export default async function AdminAuthRootLayout({ children }: LayoutProps<"/admin">) {
+  await requireAuth();
+
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body>
@@ -31,7 +34,7 @@ export default function AdminAuthRootLayout({ children }: LayoutProps<"/admin">)
             <SidebarInset>
               <AppHeader />
 
-              <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
+              <div className="flex flex-1 flex-col gap-4 p-4 pt-3">{children}</div>
             </SidebarInset>
           </SidebarProvider>
         </Theme>

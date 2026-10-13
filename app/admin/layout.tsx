@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   description: "Admin",
 };
 
-export default function AdminRootLayout({ children }: LayoutProps<"/admin">) {
+export default async function AdminRootLayout({ children }: LayoutProps<"/admin">) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body>
