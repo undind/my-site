@@ -9,10 +9,7 @@ export const accountSchema = z
     confirmPassword: z.string(),
   })
   .superRefine((data, ctx) => {
-    const wantsPasswordChange =
-      data.currentPassword.length > 0 ||
-      data.newPassword.length > 0 ||
-      data.confirmPassword.length > 0;
+    const wantsPasswordChange = data.currentPassword.length > 0 || data.newPassword.length > 0 || data.confirmPassword.length > 0;
 
     if (!wantsPasswordChange) return;
 
@@ -48,11 +45,7 @@ export const accountSchema = z
       });
     }
 
-    if (
-      data.currentPassword &&
-      data.newPassword &&
-      data.currentPassword === data.newPassword
-    ) {
+    if (data.currentPassword && data.newPassword && data.currentPassword === data.newPassword) {
       ctx.addIssue({
         code: "custom",
         path: ["newPassword"],

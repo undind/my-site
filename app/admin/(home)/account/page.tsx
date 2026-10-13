@@ -2,7 +2,7 @@ import { type Metadata } from "next";
 
 import { Container } from "@radix-ui/themes";
 
-import AccountForm from "@/app/admin/_components/account/Form"
+import AccountForm from "@/app/admin/_components/account/Form";
 import { requireAuth } from "@/lib/auth-server";
 
 export const metadata: Metadata = {

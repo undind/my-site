@@ -5,5 +5,5 @@ export default function Loading() {
     <Flex justify="center" align="center" my="6">
       <Spinner size="3" />
     </Flex>
-  )
+  );
 }

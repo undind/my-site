@@ -7,7 +7,6 @@ import { DropdownMenu } from "@radix-ui/themes";
 
 import { authClient } from "@/lib/auth-client";
 
-
 export function LogoutButton() {
   const router = useRouter();
 

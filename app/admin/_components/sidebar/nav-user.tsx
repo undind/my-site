@@ -35,12 +35,12 @@ export function NavUser({
           </DropdownMenu.Trigger>
           <DropdownMenu.Content className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg" side={isMobile ? "bottom" : "right"} variant="soft" align="end" sideOffset={4}>
             <DropdownMenu.Group>
-                <DropdownMenu.Item asChild>
-                  <Link href={getRouteByKey('account')!.href}>
-                    <PersonIcon />
-                    Account
-                  </Link>
-                </DropdownMenu.Item>
+              <DropdownMenu.Item asChild>
+                <Link href={getRouteByKey("account")!.href}>
+                  <PersonIcon />
+                  Account
+                </Link>
+              </DropdownMenu.Item>
             </DropdownMenu.Group>
             <DropdownMenu.Separator />
             <LogoutButton />

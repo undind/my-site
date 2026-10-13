@@ -14,16 +14,18 @@ export function NavMain() {
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
-          {routes?.filter(item => item.key !== 'account').map((item) => (
-            <SidebarMenuItem key={item.key}>
-              <Link href={item.href}>
-                <SidebarMenuButton tooltip={capitalize(item.key)} isActive={currentPath.includes(item.href)}>
-                  {item.icon && <item.icon />}
-                  <span>{capitalize(item.key)}</span>
-                </SidebarMenuButton>
-              </Link>
-            </SidebarMenuItem>
-          ))}
+          {routes
+            ?.filter((item) => item.key !== "account")
+            .map((item) => (
+              <SidebarMenuItem key={item.key}>
+                <Link href={item.href}>
+                  <SidebarMenuButton tooltip={capitalize(item.key)} isActive={currentPath.includes(item.href)}>
+                    {item.icon && <item.icon />}
+                    <span>{capitalize(item.key)}</span>
+                  </SidebarMenuButton>
+                </Link>
+              </SidebarMenuItem>
+            ))}
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

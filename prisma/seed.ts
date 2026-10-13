@@ -6,9 +6,7 @@ async function main() {
   const password = process.env.ADMIN_PASSWORD;
 
   if (!email || !password) {
-    throw new Error(
-      "ADMIN_EMAIL and ADMIN_PASSWORD are required",
-    );
+    throw new Error("ADMIN_EMAIL and ADMIN_PASSWORD are required");
   }
 
   const existingUser = await prisma.user.findUnique({

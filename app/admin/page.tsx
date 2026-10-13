@@ -10,7 +10,7 @@ export default async function Admin() {
   const session = await getCurrentSession();
 
   if (session) {
-    redirect(getRouteByKey('dashboard')!.href);
+    redirect(getRouteByKey("dashboard")!.href);
   }
 
   return (

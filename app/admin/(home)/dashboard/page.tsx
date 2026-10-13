@@ -1,7 +1,12 @@
 import { type Metadata } from "next";
 
-import { Box, Card, Container, Flex, Grid, Text } from "@radix-ui/themes";
+import { Container, Grid } from "@radix-ui/themes";
 
+import DashboardArticles from "@/app/admin/_components/dashboard/articles";
+import DashboardErrors from "@/app/admin/_components/dashboard/errors";
+import DashboardLastChanges from "@/app/admin/_components/dashboard/last-changes";
+import DashboardLastSeen from "@/app/admin/_components/dashboard/last-seen";
+import DashboardNeedAttention from "@/app/admin/_components/dashboard/need-attention";
 import DashboardProjects from "@/app/admin/_components/dashboard/projects";
 
 export const metadata: Metadata = {
@@ -12,51 +17,16 @@ export const metadata: Metadata = {
 export default function Dashboard() {
   return (
     <Container size="4" px="4">
-      <Grid columns="2" gap="4" rows="repeat(2, 1fr)" width="auto">
+      <Grid columns="2" gap="4" rows="repeat(2, 1fr)" width="auto" mb="4">
         <DashboardProjects />
-        <Box>
-          <Card variant="classic" size="3">
-            <Flex gap="3" align="center">
-              <Box>
-                <Text as="div" size="2" weight="bold">
-                  Teodros Girmay
-                </Text>
-                <Text as="div" size="2" color="gray">
-                  Engineering
-                </Text>
-              </Box>
-            </Flex>
-          </Card>
-        </Box>
-        <Box>
-          <Card variant="classic" size="3">
-            <Flex gap="3" align="center">
-              <Box>
-                <Text as="div" size="2" weight="bold">
-                  Teodros Girmay
-                </Text>
-                <Text as="div" size="2" color="gray">
-                  Engineering
-                </Text>
-              </Box>
-            </Flex>
-          </Card>
-        </Box>
-        <Box>
-          <Card variant="classic" size="3">
-            <Flex gap="3" align="center">
-              <Box>
-                <Text as="div" size="2" weight="bold">
-                  Teodros Girmay
-                </Text>
-                <Text as="div" size="2" color="gray">
-                  Engineering
-                </Text>
-              </Box>
-            </Flex>
-          </Card>
-        </Box>
+        <DashboardArticles />
+        <DashboardLastSeen />
+        <DashboardErrors />
       </Grid>
+
+      <DashboardLastChanges />
+
+      <DashboardNeedAttention />
     </Container>
   );
 }
