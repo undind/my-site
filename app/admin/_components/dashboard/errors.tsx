@@ -10,7 +10,9 @@ export default function DashboardErrors() {
           <Text as="div" size="7">
             —
           </Text>
-          <Text as="div" size="2" color="gray">Website errors</Text>
+          <Text as="div" size="2" color="gray">
+            Website errors
+          </Text>
         </Flex>
       </Card>
     </Box>

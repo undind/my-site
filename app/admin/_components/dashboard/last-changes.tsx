@@ -7,7 +7,9 @@ export default function DashboardLastChanges() {
       <Card variant="classic" size="3">
         <Flex gap="2" align="center">
           <ClockIcon />
-          <Text as="div" size="3" weight="medium">Recent changes</Text>
+          <Text as="div" size="3" weight="medium">
+            Recent changes
+          </Text>
         </Flex>
       </Card>
     </Box>

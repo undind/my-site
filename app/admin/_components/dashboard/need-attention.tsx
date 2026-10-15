@@ -7,7 +7,9 @@ export default function DashboardNeedAttention() {
       <Card variant="classic" size="3">
         <Flex gap="2" align="center">
           <CheckCircledIcon />
-          <Text as="div" size="3" weight="medium">What requires attention</Text>
+          <Text as="div" size="3" weight="medium">
+            What requires attention
+          </Text>
         </Flex>
       </Card>
     </Box>

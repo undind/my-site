@@ -10,7 +10,9 @@ export default function DashboardLastSeen() {
           <Text as="div" size="7">
             —
           </Text>
-          <Text as="div" size="2" color="gray">Visits over the last 7 days</Text>
+          <Text as="div" size="2" color="gray">
+            Visits over the last 7 days
+          </Text>
         </Flex>
       </Card>
     </Box>

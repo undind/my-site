@@ -10,9 +10,9 @@ export default function Error({ error, retry }: { error: Error & { digest?: stri
   }, [error]);
 
   return (
-    <div className="align-center flex flex-col text-center h-60 w-full justify-center">
+    <div className="align-center flex h-60 w-full flex-col justify-center text-center">
       <div className="text-center">
-        <h2 className="text-4xl mb-2">Something went wrong!</h2>
+        <h2 className="mb-2 text-4xl">Something went wrong!</h2>
         <Button onClick={() => retry()}>Try again</Button>
       </div>
     </div>
