@@ -15,7 +15,7 @@ export function NavMain() {
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
           {routes
-            ?.filter((item) => item.key !== "account")
+            ?.filter((item) => item.sidebar)
             .map((item) => (
               <SidebarMenuItem key={item.key}>
                 <Link href={item.href}>

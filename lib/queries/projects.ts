@@ -2,6 +2,7 @@ import { type Prisma } from "@/generated/prisma/client";
 import { handlePrismaError } from "@/lib/db/errors";
 import { prisma } from "@/lib/prisma";
 import { type GetProjectsParams } from "@/lib/queries/types";
+import { type CreateProjectInput } from "@/lib/validations/admin/project/create";
 
 export async function getProjects({ page = 1, limit = 10, search, status, tags }: GetProjectsParams = {}) {
   const where: Prisma.ProjectWhereInput = {
@@ -58,16 +59,21 @@ export async function getProjects({ page = 1, limit = 10, search, status, tags }
   }
 }
 
-export async function createProject(
-  data: {
-    title: string;
-    slug: string;
-    shortDescription: string;
-    description: string;
-  },
-) {
+export async function createProject(data: CreateProjectInput) {
   try {
-    return await prisma.project.create({ data });
+    const { tags, ...projectData } = data;
+
+    return prisma.project.create({
+      data: {
+        ...projectData,
+        tags: {
+          connect: tags.map((id) => ({ id })),
+        },
+      },
+      include: {
+        tags: true,
+      },
+    });
   } catch (error) {
     handlePrismaError(error);
   }

@@ -1,10 +1,12 @@
 import { type Metadata } from "next";
+import Link from "next/link";
 
-import { Container } from "@radix-ui/themes";
+import { Button, Container, Flex, Heading } from "@radix-ui/themes";
 
 import ProjectsTable from "@/app/admin/_components/projects/table";
+import { getRouteByKey } from "@/app/admin/constants/routes";
 import { getProjects } from "@/lib/queries/projects";
-import { parseProjectFilters } from "@/lib/validations/admin/project-filters";
+import { parseProjectFilters } from "@/lib/validations/admin/project/filters";
 
 type Props = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -19,9 +21,15 @@ export default async function Projects({ searchParams }: Props) {
   const filters = parseProjectFilters(await searchParams);
   const result = await getProjects(filters);
 
-  console.log(result);
   return (
     <Container size="4" px="4">
+      <Flex align="center" gap="3" mb="3">
+        <Heading size="5">Projects</Heading>
+        <Button asChild>
+          <Link href={getRouteByKey('projects.create')!.href}>Create</Link>
+        </Button>
+      </Flex>
+
       <ProjectsTable items={result.items} />
     </Container>
   );
