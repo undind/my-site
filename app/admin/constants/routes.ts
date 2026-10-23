@@ -5,35 +5,35 @@ export const routes = [
     href: "/admin/dashboard",
     key: "dashboard",
     icon: DashboardIcon,
-    sidebar: true
+    sidebar: true,
   },
   {
     href: "/admin/projects",
     key: "projects",
     icon: BackpackIcon,
-    sidebar: true
+    sidebar: true,
   },
   {
     href: "/admin/projects/create",
     key: "projects.create",
-    sidebar: false
+    sidebar: false,
   },
   {
     href: "/admin/projects/edit/[slug]",
     key: "projects.edit",
-    sidebar: false
+    sidebar: false,
   },
   {
     href: "/admin/blog",
     key: "blog",
     icon: Pencil2Icon,
-    sidebar: true
+    sidebar: true,
   },
   {
     href: "/admin/account",
     key: "account",
     icon: null,
-    sidebar: false
+    sidebar: false,
   },
 ] as const;
 

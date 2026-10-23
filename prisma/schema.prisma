@@ -106,6 +106,7 @@ model Tag {
   name      String    @unique
   slug      String    @unique
   createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   projects  Project[]
 }

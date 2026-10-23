@@ -18,10 +18,10 @@ export async function createProjectAction(_prevState: CreateProjectState, formDa
     slug: formData.get("slug"),
     shortDescription: formData.get("shortDescription"),
     description: formData.get("description"),
-    coverImage: formData.get("coverImage") || null,
-    demoUrl: formData.get("demoUrl") || null,
-    repositoryUrl: formData.get("repositoryUrl") || null,
-    role: formData.get("role") || null,
+    coverImage: formData.get("coverImage") ?? "",
+    demoUrl: formData.get("demoUrl") ?? "",
+    repositoryUrl: formData.get("repositoryUrl") ?? "",
+    role: formData.get("role") ?? "",
     tags: formData.getAll("tags"),
   };
 

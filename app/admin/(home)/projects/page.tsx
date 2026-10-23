@@ -26,7 +26,7 @@ export default async function Projects({ searchParams }: Props) {
       <Flex align="center" gap="3" mb="3">
         <Heading size="5">Projects</Heading>
         <Button asChild>
-          <Link href={getRouteByKey('projects.create')!.href}>Create</Link>
+          <Link href={getRouteByKey("projects.create")!.href}>Create</Link>
         </Button>
       </Flex>
 
