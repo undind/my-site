@@ -1,23 +1,26 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Text, TextArea, TextField } from "@radix-ui/themes";
+import { Box, Button, Flex, Text, TextArea, TextField } from "@radix-ui/themes";
+import { toast } from "sonner";
 
+import { ProjectTagsSelect } from "@/app/admin/_components/projects/project-tags-select";
 import { createProjectAction } from "@/app/admin/(home)/projects/create/action";
 import { generateSlug } from "@/lib/utils/slug";
 import { type CreateProjectInput, createProjectSchema } from "@/lib/validations/admin/project/create";
 
 type Props = {
-  tags: { id: string; name: string }[];
+  tags: {
+    id: string;
+    name: string;
+  }[];
 };
 
 function ProjectForm({ tags }: Props) {
   const [slugEdited, setSlugEdited] = useState(false);
-  const [serverError, setServerError] = useState("");
-  const [serverErrors, setServerErrors] = useState<Record<string, string[]>>({});
   const [isPending, startTransition] = useTransition();
 
   const {
@@ -27,6 +30,7 @@ function ProjectForm({ tags }: Props) {
     setError,
     clearErrors,
     watch,
+    control,
     formState: { errors },
   } = useForm<CreateProjectInput>({
     resolver: zodResolver(createProjectSchema),
@@ -67,11 +71,8 @@ function ProjectForm({ tags }: Props) {
   }
 
   async function onSubmit(values: CreateProjectInput) {
-    setServerError("");
-    setServerErrors({});
     clearErrors();
 
-    // Преобразуем значения RHF в FormData для Server Action.
     const formData = new FormData();
 
     for (const [key, value] of Object.entries(values)) {
@@ -89,8 +90,6 @@ function ProjectForm({ tags }: Props) {
         if (result.success) return;
 
         if (result.errors) {
-          setServerErrors(result.errors);
-
           for (const [field, messages] of Object.entries(result.errors)) {
             if (messages?.[0]) {
               setError(field as keyof CreateProjectInput, {
@@ -101,10 +100,8 @@ function ProjectForm({ tags }: Props) {
           }
         }
 
-        setServerError(result.message ?? "");
+        toast.error(result.message ?? "");
       } catch (error) {
-        // Next.js redirect() завершает Server Action через
-        // специальный механизм. Не подавляем его здесь.
         throw error;
       }
     });
@@ -132,25 +129,29 @@ function ProjectForm({ tags }: Props) {
       </div>
 
       <div>
-        <label htmlFor="slug">
-          <Text size="2" weight="medium" as="div" mb="1">
-            Slug
-          </Text>
-        </label>
-        <TextField.Root
-          id="slug"
-          {...register("slug", {
-            onChange: handleSlugChange,
-          })}
-        />
+        <Flex align="end" gap="2">
+          <Box className="flex-1">
+            <label htmlFor="slug">
+              <Text size="2" weight="medium" as="div" mb="1">
+                Slug
+              </Text>
+            </label>
+            <TextField.Root
+              id="slug"
+              {...register("slug", {
+                onChange: handleSlugChange,
+              })}
+            />
+          </Box>
+          <Button type="button" mt="1" variant="surface" onClick={regenerateSlug}>
+            Generate
+          </Button>
+        </Flex>
         {errors?.slug?.message && (
           <Text size="2" color="red" mt="1">
             {errors?.slug?.message}
           </Text>
         )}
-        <Button type="button" mt="1" onClick={regenerateSlug}>
-          Generate
-        </Button>
       </div>
 
       <div>
@@ -182,12 +183,18 @@ function ProjectForm({ tags }: Props) {
       </div>
 
       <div>
-        <label htmlFor="demoUrl">
-          <Text size="2" weight="medium" as="div" mb="1">
-            Tags
-          </Text>
-        </label>
-        <TextField.Root {...register("tags")} />
+        <Controller
+          name="tags"
+          control={control}
+          render={({ field }) => (
+            <ProjectTagsSelect
+              tags={tags}
+              value={field.value}
+              onChange={field.onChange}
+              disabled={isPending}
+            />
+          )}
+        />
         {errors?.tags?.message && (
           <Text size="2" color="red" mt="1">
             {errors?.tags?.message}

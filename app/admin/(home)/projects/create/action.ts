@@ -30,7 +30,7 @@ export async function createProjectAction(_prevState: CreateProjectState, formDa
   if (!parsed.success) {
     return {
       success: false,
-      message: "Проверьте заполнение формы.",
+      message: "Check that the form has been filled out.",
       errors: parsed.error.flatten().fieldErrors as Record<string, string[]>,
     };
   }
@@ -42,7 +42,7 @@ export async function createProjectAction(_prevState: CreateProjectState, formDa
       return {
         success: false,
         errors: {
-          slug: ["Проект с таким slug уже существует."],
+          slug: ["A project with this slug already exists."],
         },
       };
     }
@@ -50,7 +50,7 @@ export async function createProjectAction(_prevState: CreateProjectState, formDa
     if (error instanceof Error && "code" in error && error.code === "P2025") {
       return {
         success: false,
-        message: "Один из выбранных тегов не найден.",
+        message: "One of the selected tags was not found.",
       };
     }
 
@@ -58,7 +58,7 @@ export async function createProjectAction(_prevState: CreateProjectState, formDa
 
     return {
       success: false,
-      message: "Не удалось создать проект. Попробуйте позже.",
+      message: "Failed to create project. Please try again later.",
     };
   }
 

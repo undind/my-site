@@ -4,8 +4,10 @@ import Link from "next/link";
 import { Button, Container, Flex, Heading } from "@radix-ui/themes";
 
 import ProjectsTable from "@/app/admin/_components/projects/table";
+import { ProjectTagsDialog } from "@/app/admin/(home)/projects/project-tags-dialog";
 import { getRouteByKey } from "@/app/admin/constants/routes";
 import { getProjects } from "@/lib/queries/projects";
+import { getTags } from "@/lib/queries/tag";
 import { parseProjectFilters } from "@/lib/validations/admin/project/filters";
 
 type Props = {
@@ -20,6 +22,7 @@ export const metadata: Metadata = {
 export default async function Projects({ searchParams }: Props) {
   const filters = parseProjectFilters(await searchParams);
   const result = await getProjects(filters);
+  const tags = await getTags();
 
   return (
     <Container size="4" px="4">
@@ -28,6 +31,7 @@ export default async function Projects({ searchParams }: Props) {
         <Button asChild>
           <Link href={getRouteByKey("projects.create")!.href}>Create</Link>
         </Button>
+        <ProjectTagsDialog initialTags={tags} />
       </Flex>
 
       <ProjectsTable items={result.items} />
