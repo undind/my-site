@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button, Container, Flex, Heading } from "@radix-ui/themes";
 
 import ProjectsTable from "@/app/admin/_components/projects/table";
-import { ProjectTagsDialog } from "@/app/admin/(home)/projects/project-tags-dialog";
+import { ProjectTagsDialog } from "@/app/admin/(home)/projects/_dialogs/project-tags";
 import { getRouteByKey } from "@/app/admin/constants/routes";
 import { getProjects } from "@/lib/queries/projects";
 import { getTags } from "@/lib/queries/tag";

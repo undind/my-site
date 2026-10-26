@@ -4,24 +4,28 @@ import { useState, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Button, Flex, Text, TextArea, TextField } from "@radix-ui/themes";
+import { Box, Button, Flex, Select, Text, TextArea, TextField } from "@radix-ui/themes";
 import { toast } from "sonner";
 
-import { ProjectTagsSelect } from "@/app/admin/_components/projects/project-tags-select";
-import { createProjectAction } from "@/app/admin/(home)/projects/create/action";
+import { type ProjectTagOption, ProjectTagsSelect } from "@/app/admin/_components/projects/project-tags-select";
+import { createProjectAction, updateProjectAction } from "@/app/admin/(home)/projects/_actions/action";
+import { ProjectStatus } from "@/generated/prisma/enums";
 import { generateSlug } from "@/lib/utils/slug";
 import { type CreateProjectInput, createProjectSchema } from "@/lib/validations/admin/project/create";
 
 type Props = {
-  tags: {
-    id: string;
-    name: string;
-  }[];
+  mode: "create" | "edit";
+  projectId?: string;
+  initialValues?: CreateProjectInput;
+  tags: ProjectTagOption[];
 };
 
-function ProjectForm({ tags }: Props) {
+function ProjectForm({ mode, projectId, initialValues, tags }: Props) {
   const [slugEdited, setSlugEdited] = useState(false);
   const [isPending, startTransition] = useTransition();
+
+  const isEdit = mode === "edit";
+  const statuses = Object.values(ProjectStatus || {});
 
   const {
     register,
@@ -34,7 +38,7 @@ function ProjectForm({ tags }: Props) {
     formState: { errors },
   } = useForm<CreateProjectInput>({
     resolver: zodResolver(createProjectSchema),
-    defaultValues: {
+    defaultValues: initialValues ?? {
       title: "",
       slug: "",
       shortDescription: "",
@@ -42,8 +46,8 @@ function ProjectForm({ tags }: Props) {
       coverImage: "",
       demoUrl: "",
       repositoryUrl: "",
-      role: "",
       tags: [],
+      status: "DRAFT",
     },
   });
 
@@ -85,7 +89,7 @@ function ProjectForm({ tags }: Props) {
 
     startTransition(async () => {
       try {
-        const result = await createProjectAction({ success: false }, formData);
+        const result = isEdit && projectId ? await updateProjectAction(projectId, formData) : await createProjectAction({ success: false }, formData);
 
         if (result.success) return;
 
@@ -109,10 +113,33 @@ function ProjectForm({ tags }: Props) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div>
+      <Box>
+        <label htmlFor="status">
+          <Text size="2" weight="medium" as="div" mb="1">
+            Status
+          </Text>
+        </label>
+        <Select.Root size="2" defaultValue="DRAFT" {...register("status")}>
+          <Select.Trigger variant="surface" id="status" />
+          <Select.Content>
+            {statuses?.map((item) => (
+              <Select.Item key={item} value={item}>
+                {item}
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Root>
+        {errors?.status?.message && (
+          <Text size="2" color="red" mt="1">
+            {errors?.status?.message}
+          </Text>
+        )}
+      </Box>
+
+      <Box>
         <label htmlFor="title">
           <Text size="2" weight="medium" as="div" mb="1">
-            Titile
+            Title
           </Text>
         </label>
         <TextField.Root
@@ -126,9 +153,9 @@ function ProjectForm({ tags }: Props) {
             {errors?.title?.message}
           </Text>
         )}
-      </div>
+      </Box>
 
-      <div>
+      <Box>
         <Flex align="end" gap="2">
           <Box className="flex-1">
             <label htmlFor="slug">
@@ -152,9 +179,9 @@ function ProjectForm({ tags }: Props) {
             {errors?.slug?.message}
           </Text>
         )}
-      </div>
+      </Box>
 
-      <div>
+      <Box>
         <label htmlFor="shortDescription">
           <Text size="2" weight="medium" as="div" mb="1">
             Short description
@@ -166,9 +193,9 @@ function ProjectForm({ tags }: Props) {
             {errors?.shortDescription?.message}
           </Text>
         )}
-      </div>
+      </Box>
 
-      <div>
+      <Box>
         <label htmlFor="description">
           <Text size="2" weight="medium" as="div" mb="1">
             Full description
@@ -180,29 +207,18 @@ function ProjectForm({ tags }: Props) {
             {errors?.description?.message}
           </Text>
         )}
-      </div>
+      </Box>
 
-      <div>
-        <Controller
-          name="tags"
-          control={control}
-          render={({ field }) => (
-            <ProjectTagsSelect
-              tags={tags}
-              value={field.value}
-              onChange={field.onChange}
-              disabled={isPending}
-            />
-          )}
-        />
+      <Box>
+        <Controller name="tags" control={control} render={({ field }) => <ProjectTagsSelect tags={tags} value={field.value} onChange={field.onChange} disabled={isPending} />} />
         {errors?.tags?.message && (
           <Text size="2" color="red" mt="1">
             {errors?.tags?.message}
           </Text>
         )}
-      </div>
+      </Box>
 
-      <div>
+      <Box>
         <label htmlFor="demoUrl">
           <Text size="2" weight="medium" as="div" mb="1">
             Demo
@@ -214,9 +230,9 @@ function ProjectForm({ tags }: Props) {
             {errors?.demoUrl?.message}
           </Text>
         )}
-      </div>
+      </Box>
 
-      <div>
+      <Box>
         <label htmlFor="repositoryUrl">
           <Text size="2" weight="medium" as="div" mb="1">
             Repository
@@ -228,10 +244,10 @@ function ProjectForm({ tags }: Props) {
             {errors?.repositoryUrl?.message}
           </Text>
         )}
-      </div>
+      </Box>
 
       <Button type="submit" disabled={isPending} loading={isPending}>
-        Create
+        {isEdit ? "Save" : "Create"}
       </Button>
     </form>
   );

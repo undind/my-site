@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Button, Callout, Flex, Text, TextField } from "@radix-ui/themes";
+import { Box, Button, Flex, Text, TextField } from "@radix-ui/themes";
+import { toast } from "sonner";
 
 import { authClient } from "@/lib/auth-client";
 import { type LoginFormValues, loginSchema } from "@/lib/validations/admin/auth";
@@ -30,9 +31,7 @@ export default function LoginForm() {
     });
 
     if (error) {
-      form.setError("root", {
-        message: "Enter correct email or password",
-      });
+      toast.error("Enter correct email or password");
 
       return;
     }
@@ -44,12 +43,6 @@ export default function LoginForm() {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
       <Flex direction="column" gap="3" mb="3">
-        {form.formState.errors.root && (
-          <Callout.Root color="red">
-            <Callout.Text>{form.formState.errors.root.message}</Callout.Text>
-          </Callout.Root>
-        )}
-
         <Box>
           <label>
             <Text size="1" weight="medium" mb="1" as="div">

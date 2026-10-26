@@ -1,5 +1,9 @@
-import { Table } from "@radix-ui/themes";
+import Link from "next/link";
 
+import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
+import { Flex, IconButton, Table } from "@radix-ui/themes";
+
+import { getRouteByKey } from "@/app/admin/constants/routes";
 import { type Project } from "@/generated/prisma/client";
 
 type Props = {
@@ -17,6 +21,7 @@ export default function ProjectsTable({ items }: Props) {
           <Table.ColumnHeaderCell>Published</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Updated</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Created</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell width="1%" />
         </Table.Row>
       </Table.Header>
 
@@ -29,11 +34,23 @@ export default function ProjectsTable({ items }: Props) {
             <Table.Cell>{item?.publishedAt?.toISOString()}</Table.Cell>
             <Table.Cell>{item?.updatedAt?.toISOString()}</Table.Cell>
             <Table.Cell>{item?.createdAt?.toISOString()}</Table.Cell>
+            <Table.Cell width="1%">
+              <Flex align="center" gap="2">
+                <IconButton variant="soft" size="1">
+                  <Link href={getRouteByKey("projects.edit")!.href?.replace(/\[.*?\]/g, item.id)}>
+                    <Pencil1Icon />
+                  </Link>
+                </IconButton>
+                <IconButton color="red" size="1">
+                  <TrashIcon />
+                </IconButton>
+              </Flex>
+            </Table.Cell>
           </Table.Row>
         ))}
         {!items?.length && (
           <Table.Row>
-            <Table.Cell colSpan={6} align="center">
+            <Table.Cell colSpan={7} align="center">
               Empty result
             </Table.Cell>
           </Table.Row>

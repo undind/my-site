@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import { Theme } from "@radix-ui/themes";
-import { Toaster } from 'sonner';
 
 import { AppHeader } from "@/app/admin/_components/header";
 import { AppSidebar } from "@/app/admin/_components/sidebar";
@@ -35,11 +34,9 @@ export default async function AdminAuthRootLayout({ children }: LayoutProps<"/ad
             <SidebarInset>
               <AppHeader />
 
-              <div className="flex flex-1 flex-col gap-4 p-4 pt-3">{children}</div>
+              <div className="flex flex-1 flex-col gap-4 pt-3">{children}</div>
             </SidebarInset>
           </SidebarProvider>
-
-          <Toaster position="bottom-right" richColors />
         </Theme>
       </body>
     </html>

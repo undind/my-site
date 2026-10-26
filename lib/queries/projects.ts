@@ -79,6 +79,31 @@ export async function createProject(data: CreateProjectInput) {
   }
 }
 
+export async function updateProject(id: string, input: CreateProjectInput) {
+  const { tags, ...fields } = input;
+
+  try {
+    return await prisma.project.update({
+      where: { id },
+      data: {
+        ...fields,
+        coverImage: fields.coverImage || null,
+        demoUrl: fields.demoUrl || null,
+        repositoryUrl: fields.repositoryUrl || null,
+        status: fields.status || "DRAFT",
+        tags: {
+          set: tags.map((tagId) => ({ id: tagId })),
+        },
+      },
+      include: {
+        tags: true,
+      },
+    });
+  } catch (error) {
+    handlePrismaError(error);
+  }
+}
+
 export async function getProjectCounts() {
   try {
     const counts = await prisma.project.groupBy({
@@ -110,6 +135,21 @@ export async function getProjectCounts() {
     }
 
     return stats;
+  } catch (error) {
+    handlePrismaError(error);
+  }
+}
+
+export async function getProject(id: string) {
+  try {
+    return prisma.project.findUnique({
+      where: { id },
+      include: {
+        tags: {
+          select: { id: true },
+        },
+      },
+    });
   } catch (error) {
     handlePrismaError(error);
   }

@@ -6,7 +6,7 @@ import { Cross1Icon, LockClosedIcon, PlusCircledIcon, TrashIcon } from "@radix-u
 import { AlertDialog, Box, Button, Dialog, Flex, IconButton, Text, TextField } from "@radix-ui/themes";
 import { toast } from "sonner";
 
-import { createTagAction, deleteTagAction } from "@/app/admin/(home)/projects/tags-actions";
+import { createTagAction, deleteTagAction } from "@/app/admin/(home)/projects/_actions/tags";
 
 type Tag = {
   id: string;
@@ -120,9 +120,9 @@ export function ProjectTagsDialog({ initialTags }: Props) {
 
           <TextField.Root value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search..." />
 
-          <Box className="mt-3 rounded-md border border-gray-300">
+          <Box className="mt-3 p-2 rounded-md border border-gray-300 divide-y divide-gray-200">
             {filteredTags.map((tag) => (
-              <Flex key={tag.id} align="center" justify="between" gap="3" p="3">
+              <Flex key={tag.id} align="center" justify="between" gap="3" py="2">
                 <Box className="min-w-0">
                   <Text truncate weight="medium" as="div">
                     {tag.name}

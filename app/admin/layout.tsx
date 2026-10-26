@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import { Theme } from "@radix-ui/themes";
+import { Toaster } from 'sonner';
 
 import "@/app/admin/style.css";
 
@@ -21,6 +22,8 @@ export default async function AdminRootLayout({ children }: LayoutProps<"/admin"
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body>
         <Theme>{children}</Theme>
+
+        <Toaster position="bottom-right" richColors />
       </body>
     </html>
   );

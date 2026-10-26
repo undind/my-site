@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
-import { Button, Checkbox, Popover, Text,TextField } from "@radix-ui/themes";
+import { Box, Button, Checkbox, Popover, Text,TextField } from "@radix-ui/themes";
 
 export type ProjectTagOption = {
   id: string;
@@ -27,6 +27,7 @@ export function ProjectTagsSelect({ tags, value, onChange, disabled = false }: P
   }, [tags, search]);
 
   function toggleTag(id: string) {
+    console.log(id)
     onChange(value.includes(id) ? value.filter((selectedId) => selectedId !== id) : [...value, id]);
   }
 
@@ -42,16 +43,16 @@ export function ProjectTagsSelect({ tags, value, onChange, disabled = false }: P
       <Popover.Content size="1" sideOffset={4} align="start" width="280px">
         <TextField.Root type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search..." />
 
-        <div className="max-h-56 overflow-y-auto">
+        <Box className="max-h-56 overflow-y-auto" mt="2">
           {filteredTags.map((tag) => (
             <label key={tag.id} className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-gray-100">
-              <Checkbox checked={value.includes(tag.id)} onChange={() => toggleTag(tag.id)} />
+              <Checkbox checked={value.includes(tag.id)} onCheckedChange={() => toggleTag(tag.id)} />
               <span>{tag.name}</span>
             </label>
           ))}
 
           {filteredTags.length === 0 && <Text size="2" mt="3" color="gray" as="div">Not found</Text>}
-        </div>
+        </Box>
       </Popover.Content>
     </Popover.Root>
   );

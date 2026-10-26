@@ -19,7 +19,7 @@ export const routes = [
     sidebar: false,
   },
   {
-    href: "/admin/projects/edit/[slug]",
+    href: "/admin/projects/edit/[id]",
     key: "projects.edit",
     sidebar: false,
   },
